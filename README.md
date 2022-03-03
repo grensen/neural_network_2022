@@ -1,6 +1,12 @@
 # neural_network_2022
 My latest highly efficient neural network implementation with IO support on a low level using C#
 
+## Demo
+
+<p align="center">
+  <img src="https://github.com/grensen/neural_network_2022/blob/main/figures/demo.png?raw=true">
+</p>
+
 ## High Level Code
 
 ~~~cs
