@@ -1,11 +1,14 @@
 # neural_network_2022
-My latest highly efficient neural network implementation with IO support on a low level using C#
+
+![alt text](https://raw.githubusercontent.com/grensen/gif_test/master/Figures/gg_one_hello_goodgame.gif?raw=true)
 
 ## Demo
 
 <p align="center">
   <img src="https://github.com/grensen/neural_network_2022/blob/main/figures/demo.png?raw=true">
 </p>
+
+
 
 ## High Level Code
 
@@ -60,6 +63,12 @@ class Erratic {};...
 
 ## FF
 
+<p align="center">
+  <img src="https://github.com/grensen/neural_network_2022/blob/main/figures/ff.gif?raw=true">
+</p>
+
+---
+
 ~~~cs
 for (int i = 0, k = net[0], w = 0; i < layer; i++)
 {
@@ -76,6 +85,12 @@ for (int i = 0, k = net[0], w = 0; i < layer; i++)
 ~~~
 
 ## BP
+
+<p align="center">
+  <img src="https://github.com/grensen/neural_network_2022/blob/main/figures/bp.gif?raw=true">
+</p>
+
+---
 
 ~~~cs
 // output error gradients, hard target as 1 for its class
