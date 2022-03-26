@@ -146,11 +146,11 @@ By calculating the gradient instead of the activation, we have also unpacked thi
 Before I end this very dirty explanation, I would like to briefly remind you of a fundamental idea. Neural networks seem super complex, but you can make them simple if you understand this:
 ~~~
 Forwards:
-neuronOutput += neuronInput * weight
+neuronOutputRight += neuronInputLeft * weight
 Backwards:
-gradientInput += weight * gradientOutput
+gradientInputLeft += weight * gradientOutputRight
 Update:
-weight += neuronInput * gradientOutput
+weight += neuronInputLeft * gradientOutputRight
 ~~~
 
 ## Update
