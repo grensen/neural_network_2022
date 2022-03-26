@@ -2,13 +2,17 @@
 
 ![alt text](https://raw.githubusercontent.com/grensen/gif_test/master/Figures/gg_one_hello_goodgame.gif?raw=true)
 
+Neuronal networks bring perception into context. In the example above, a handwritten number is converted into a classification of what number it is.
+
+The animation shows my work [from 2020](https://github.com/grensen/gif_test), and serves as a reference for the more modern implementation of neural networks in 2022 presented in the demo.
+
 ## Demo
 
 <p align="center">
   <img src="https://github.com/grensen/neural_network_2022/blob/main/figures/demo.png?raw=true">
 </p>
 
-
+The main steps as follows. First, the network is initialized and then the MNIST training data set is trained, followed by the test. The network is then saved and reloaded to verify that the test result is the same as it appears to be.
 
 ## High Level Code
 
@@ -39,6 +43,10 @@ NetworkTest(d, loadedNet, loadedWeight);
 print("End demo");
 ~~~
 
+To run the demo you need visual studio 2022 with dotnet 6 or higher. The Autodata class then does the work of providing the input and output capabilities.
+
+At a high level, this is the code.
+
 ## Modularized
 
 ~~~cs
@@ -60,6 +68,8 @@ struct Sample {}...
 struct AutoData {}...
 class Erratic {};...
 ~~~
+
+It may seem unusual, but this project is still connected to an upcoming project and so my decision was made for a complete modularization of the individual steps. The code could also be designed differently and maybe it should be.
 
 ## FF
 
@@ -83,6 +93,9 @@ for (int i = 0, k = net[0], w = 0; i < layer; i++)
     j += left; k += right;
 }
 ~~~
+
+The forward pass, we go across layer i, from input neurons j to output neurons k. 
+First the input neuron on the left side is checked, which corresponds to the relu activation. If the value of the left neuron is more than 0, the neuron is added to all output neurons. This means that the code calculates input length times output length. Which creates the well known fully connected pattern whereby each neuron on the input side is individually connected to each neuron on the output side. Important here is that cache locallity is given.
 
 ## BP
 
@@ -125,6 +138,21 @@ for (int i = layer - 1, j = hidden, ww = weightLen, k; i >= 0; i--)
 }
 ~~~
 
+Instead of perceptron wise way of working, this code runs layer wise. As also the animation backwards shows. What is particularly interesting about this implementation is that the way back is based on the way forward. 
+
+Which means that a clean layer wise implementation forward only needs 3 small changes to go back and reduce the error. Instead of going from the first to the last layer, we need to go backwards from the last to the first layer.
+By calculating the gradient instead of the activation, we have also unpacked this step to finally calculate the delta value for each weight in the network.
+
+Before I end this very dirty explanation, I would like to briefly remind you of a fundamental idea. Neural networks seem super complex, but you can make them simple if you understand this:
+~~~
+Forwards:
+neuronOutput += neuronInput * weight
+Backwards:
+gradientInput += weight * gradientOutput
+Update:
+weight += neuronInput * gradientOutput
+~~~
+
 ## Update
 
 ~~~cs
@@ -140,3 +168,6 @@ for (int i = 0, mStep = 0; i < layer; i++, mStep += net[i - 0] * net[i - 1]) // 
     }
 }
 ~~~
+
+Modern networks also use a delta step, so that training steps are used in batches rather than after each individual backproagation.
+
